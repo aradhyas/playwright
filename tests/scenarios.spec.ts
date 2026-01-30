@@ -77,3 +77,26 @@ test('Interview S3: cannot submit Add User form with empty email', async ({ page
   const isValid = await email.evaluate((el: HTMLInputElement) => el.checkValidity());
   expect(isValid).toBe(false);
 });
+
+
+test('GET users API returns 200', async ({ request }) => {
+  // Send a GET request
+  const response = await request.get('https://reqres.in/api/users?page=2');
+
+  // Check HTTP status code
+  expect(response.status()).toBe(200);
+
+  // Optional: validate response body exists
+  const body = await response.json();
+  expect(body).toHaveProperty('data');
+});
+
+// example of:
+// await expect(page.getByText('Saved successfully')).toBeVisible();
+// or await expect(page.getByRole('status')).toContainText('Saved');
+
+//const row = page.getByRole('row', { name: /alden@example\.com/i });
+// await expect(row).toBeVisible();
+
+//FOR MODAL
+//const dialog = page.getByRole('dialog'); await expect(dialog).toContainText('Delete account');
